@@ -21,7 +21,7 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/body_collision.dae
+                            model://robobo_gazebo/models/robobo/meshes/body_collision.dae
                         </uri>
                     </mesh>
                 </geometry>
@@ -45,14 +45,14 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/body_visual.dae
+                            model://robobo_gazebo/models/robobo/meshes/body_visual.dae
                         </uri>
                     </mesh>
                 </geometry>
             </visual>
             <!--IR SENSORS-->
             <sensor type="ray" name="front_c">
-                <pose>-0.08 0 0.0012 0 0 3.1415</pose>
+                <pose>-0.0803 0 0.0012 0 0 3.1415</pose>
                 <visualize>false</visualize>
                 <ray>
                     <scan>
@@ -182,7 +182,7 @@
                 </plugin>
             </sensor>
             <sensor type="ray" name="back_c">
-                <pose>0.12 0 0 0 0.21 0</pose>
+                <pose>0.1201 0 0 0 0.21 0</pose>
                 <visualize>false</visualize>
                 <ray>
                     <scan>
@@ -302,7 +302,7 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/left_wheel_visual.dae
+                            model://robobo_gazebo/models/robobo/meshes/left_wheel_visual.dae
                         </uri>
                     </mesh>
                 </geometry>
@@ -350,7 +350,7 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/right_wheel_visual.dae
+                            model://robobo_gazebo/models/robobo/meshes/right_wheel_visual.dae
                         </uri>
                     </mesh>
                 </geometry>
@@ -381,7 +381,7 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/pan_visual.dae
+                            model://robobo_gazebo/models/robobo/meshes/pan_visual.dae
                         </uri>
                     </mesh>
                 </geometry>
@@ -413,22 +413,35 @@
                 <geometry>
                     <mesh>
                         <uri>
-                            model://robobo/models/robobo/meshes/tilt_smartphone_visual.dae
+                            model://robobo_gazebo/models/robobo/meshes/tilt_smartphone_visual.dae
                         </uri>
                     </mesh>
                 </geometry>
             </visual>
             <sensor type="camera" name="front_camera">
                 <pose>0.0695 0.0105 0.004 0 -1.5708 3.1415</pose>
-                <visualize>true</visualize>
+                <visualize>false</visualize>
                 <camera>
                     <image>
-                        <width>240</width>
-                        <height>310</height>
+                        <width>480</width>
+                        <height>640</height>
                     </image>
                 </camera>
-                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                    <cameraName>robobo</cameraName>
+                <plugin name="camera_controller1" filename="librobobo_camera_utils.so"/>
+                <plugin name="camera_controller2" filename="librobobo_camera.so">
+                    <frameName>Camera</frameName>
+                </plugin>
+            </sensor>
+            <sensor name="imu_sensor" type="imu">
+                <visualize>false</visualize>
+                <plugin name="imu_plugin" filename="librobobo_imu_sensor.so">
+                    <topicName>imu</topicName>
+                    <bodyName>imu_link</bodyName>
+                    <updateRateHZ>10.0</updateRateHZ>
+                    <gaussianNoise>0.0</gaussianNoise>
+                    <xyzOffset>0 0 0</xyzOffset>
+                    <rpyOffset>0 0 0</rpyOffset>
+                    <frameName>imu_link</frameName>
                 </plugin>
             </sensor>
         </link>
@@ -480,12 +493,9 @@
         </joint>
 
         <!-- PLUGINS OF MODEL-->
-        <plugin name="left_wheel_motor" filename="libleft_wheel_motor.so"/>
-        <plugin name="right_wheel_motor" filename="libright_wheel_motor.so"/>
-        <plugin name="pan_motorr" filename="libpan_motor.so"/>
-        <plugin name="tilt_motor" filename="libtilt_motor.so"/>
         <plugin name="encoders" filename="libencoders.so"/>
-        <plugin name="pruebas" filename="pruebas.so"/>
+        <plugin name="move_wheels" filename="libmove_wheels.so"/>
+        <plugin name="move_pan_tilt" filename="libmove_pan_tilt.so"/>
 
     </model>
 </sdf>

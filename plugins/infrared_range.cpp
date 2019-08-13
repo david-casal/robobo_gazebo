@@ -34,6 +34,11 @@
 
 /** \author Jose Capriles, Bence Magyar. */
 
+/*
+*Modified by David Casal
+*2019
+*/
+
 #include "robobo/infrared_range.h"
 #include "gazebo_plugins/gazebo_ros_utils.h"
 
@@ -121,7 +126,7 @@ namespace gazebo
         this->frame_name_ = "/world";
         }
         else
-        this->frame_name_ = this->sdf->Get<std::string>("frameName");
+            this->frame_name_ = this->sdf->Get<std::string>("frameName");
 
 //        if (!this->sdf->HasElement("radiation"))
 //        {
@@ -303,11 +308,6 @@ namespace gazebo
             int index = i;
 
             ir_value = ir_value + 0.124 * pow(ray, -1.7823);
-
-//            std::cerr << "\nRayo " << index << " / Valor " << ray << "\n";
-//            usleep(1000);
-//            if (ray < range_msg_.range)
-//                range_msg_.range = ray;
         }
 
         range_msg_.range = ir_value + this->GaussianKernel(0,gaussian_noise_);

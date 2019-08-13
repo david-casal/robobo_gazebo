@@ -34,6 +34,11 @@
 
 /** \author Jose Capriles. */
 
+/*
+*Modified by David Casal
+*2019
+*/
+
 #ifndef INFRARED_RANGE_H
 #define INFRARED_RANGE_H
 

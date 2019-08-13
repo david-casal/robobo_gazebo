@@ -1,0 +1,25 @@
+<launch>
+
+	<!-- Launch gazebo with the specified world loaded and paused-->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<!-- You can change the world name for your own -->
+		<arg name="world_name" value="$(find robobo_gazebo)/worlds/test.world"/>
+		<arg name="paused" value="false"/>
+	</include>
+
+	<!-- You can spawn your own model here -->
+	<node name="robot" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/robobo/model.sdf -sdf -x 0.05 -y -0.0 -z 0.0 -Y -0.4 -model robot" />
+	<arg name="robobo_name" default="robot"/>
+	<node name="robot_irs" pkg="robobo_gazebo" type="robobo_irs" args="-n $(arg robobo_name)"/>
+
+	<!-- Box for IRS calibrations
+	<node name="box" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/box/box.sdf -sdf -x -0.05 -y -0.12625 -z 0.0 -Y 0.0 -model box" />-->
+
+	<!--Spawn the test track -->
+		<node name="test_track" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/test_track/test_track.sdf -sdf -x 0.0 -y -0.0 -z 0.0 -Y 0 -model test_track" />
+
+	<!--Spawn the green ball in the test track 
+		<node name="green_ball" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/green_ball/green_ball.sdf -sdf -x 0.3 -y -0.2 -z 0.0 -Y 0 -model green ball" /> -->
+	
+</launch>
+

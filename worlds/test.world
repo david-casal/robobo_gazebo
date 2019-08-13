@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
-	<world name="default_test">
+	<world name="default">
 		<!-- A global light source -->
 		<include>
 			<uri>model://sun</uri>
 		</include>
 		<!-- A ground plane -->	
 		<include>
-			<!--<uri>model://robobo/models/white_ground</uri>-->	
+			<!--<uri>model://robobo_gazebo/models/white_ground</uri>-->	
 			<uri>model://ground_plane</uri>
 		</include>
 		<light type="point" name="point">

@@ -1,0 +1,22 @@
+<launch>
+
+	<!-- Launch gazebo with the specified world loaded and paused-->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<!-- You can change the world name for your own -->
+		<arg name="world_name" value="$(find robobo_gazebo)/worlds/test.world"/>
+		<arg name="paused" value="false"/>
+	</include>
+
+	<!-- You can spawn your own model here -->
+	<node name="robot" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/robobo/model.sdf -sdf -x 0.0 -y -0.0 -z 0.0 -Y -3.14159 -model robot" />
+	<arg name="robobo_name" default="robot"/>
+	<node name="robot_irs" pkg="robobo_gazebo" type="robobo_irs" args="-n $(arg robobo_name)"/>
+
+	<!-- You can spawn another model here -->
+<!--	<node name="robobo2" pkg="gazebo_ros" type="spawn_model" args="-file $(find robobo_gazebo)/models/robobo/model.sdf -sdf -x 1.0 -y -0.0 -z 0.0 -Y 3.14159 -model robobo2" />
+	<arg name="robobo_name2" default="robobo2"/>
+	<node name="robobo2_irs" pkg="robobo_gazebo" type="robobo_irs" args="-n $(arg robobo_name2)"/>
+-->
+	
+</launch>
+
